@@ -42,4 +42,9 @@ const addProduct = (product) => {
   return newProduct.save();
 };
 
+const addProducts = (products) => (
+  Product.insertMany(products)
+);
+
 module.exports.addProduct = addProduct;
+module.exports.addProducts = addProducts;
