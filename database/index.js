@@ -8,11 +8,11 @@ const productSchema = mongoose.Schema({
   product_id: {
     type: Number,
     validate: {
-      isAsync: true,
-      validator(productId, cb) {
-        Product.findOne({ product_id: productId })
-          .then((r) => cb(r === null));
+      validator(productId) {
+        return Product.findOne({ product_id: productId })
+          .then((r) => (r === null));
       },
+      message: 'Product Id validation failed, duplicate id found',
     },
   },
   brand_name: String,
@@ -30,8 +30,12 @@ const productSchema = mongoose.Schema({
   }],
 });
 
-mongoose.connect(uri);
 Product = mongoose.model('products', productSchema);
+
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const addProduct = (product) => {
   const newProduct = new Product(product);
