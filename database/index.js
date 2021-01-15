@@ -50,6 +50,11 @@ const getProductById = (productId) => (
   Product.findOne({ product_id: productId }).exec()
 );
 
+const getAllProducts = () => (
+  Product.find({}).exec()
+);
+
 module.exports.addProduct = addProduct;
 module.exports.addProducts = addProducts;
 module.exports.getProductById = getProductById;
+module.exports.getAllProducts = getAllProducts;
