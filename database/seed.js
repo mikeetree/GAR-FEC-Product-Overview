@@ -40,16 +40,27 @@ const productGenerator = () => {
   };
 };
 
-const generateProduct = productGenerator();
-const numProductsToGenerate = process.argv[2] || 10;
-const products = [];
+(async () => {
+  const generateProduct = productGenerator();
+  const numProductsToGenerate = process.argv[2] || 10;
+  const products = [];
 
-console.log(`Seeding database with ${numProductsToGenerate} products`);
+  const existingProducts = await database.getAllProducts();
 
-for (let i = 0; i < numProductsToGenerate; i += 1) {
-  products.push(generateProduct());
-}
+  if (existingProducts) {
+    console.log(`Removing ${existingProducts.length} existing products..`);
+    await database.clearProducts();
+  }
 
-database.addProducts(products)
-  .then((r) => console.log(`Seeded database with ${r.length} products`))
-  .catch((e) => console.log(e));
+  console.log(`Seeding database with ${numProductsToGenerate} products..`);
+
+  for (let i = 0; i < numProductsToGenerate; i += 1) {
+    products.push(generateProduct());
+  }
+
+  const addedProducts = await database.addProducts(products);
+
+  console.log(`Seeded database with ${addedProducts.length} products.`);
+
+  database.disconnect();
+})();
