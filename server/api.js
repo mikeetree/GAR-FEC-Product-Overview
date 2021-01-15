@@ -11,6 +11,11 @@ api.get('/products/all', (req, res) => {
     .catch(() => res.status(404).end());
 });
 
+api.get('/products/random', async (req, res) => {
+  const product = await database.getRandomProduct();
+  res.send(product);
+});
+
 api.get('/products/id/:productId(\\d+)', (req, res) => {
   database.getProductById(req.params.productId)
     .then((product) => {

@@ -54,7 +54,15 @@ const getAllProducts = () => (
   Product.find({}).exec()
 );
 
+const getRandomProduct = async () => {
+  const count = await Product.countDocuments({}).exec();
+  const rand = Math.floor(Math.random() * count);
+
+  return Product.findOne({}).skip(rand).exec();
+};
+
 module.exports.addProduct = addProduct;
 module.exports.addProducts = addProducts;
 module.exports.getProductById = getProductById;
 module.exports.getAllProducts = getAllProducts;
+module.exports.getRandomProduct = getRandomProduct;
