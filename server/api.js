@@ -24,4 +24,6 @@ api.get('/products/id/:productId(\\d+)', (req, res) => {
     .catch(() => res.status(404).end());
 });
 
+// TODO-LOW-L: api method to POST to cart (require identifying use, saving cart etc)
+
 module.exports = api;
