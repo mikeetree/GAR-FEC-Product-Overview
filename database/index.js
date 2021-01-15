@@ -46,5 +46,10 @@ const addProducts = (products) => (
   Product.insertMany(products)
 );
 
+const getProductById = (productId) => (
+  Product.findOne({ product_id: productId }).exec()
+);
+
 module.exports.addProduct = addProduct;
 module.exports.addProducts = addProducts;
+module.exports.getProductById = getProductById;
