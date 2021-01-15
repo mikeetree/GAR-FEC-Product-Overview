@@ -32,10 +32,18 @@ const productSchema = mongoose.Schema({
 
 Product = mongoose.model('products', productSchema);
 
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+let db;
+
+(async () => {
+  db = await mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+})();
+
+const disconnect = () => db.disconnect();
+
+const clearProducts = () => Product.deleteMany({});
 
 const addProduct = (product) => {
   const newProduct = new Product(product);
@@ -66,3 +74,5 @@ module.exports.addProducts = addProducts;
 module.exports.getProductById = getProductById;
 module.exports.getAllProducts = getAllProducts;
 module.exports.getRandomProduct = getRandomProduct;
+module.exports.clearProducts = clearProducts;
+module.exports.disconnect = disconnect;
