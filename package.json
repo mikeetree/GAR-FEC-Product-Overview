@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./server",
-    "test": "jest --forceExit",
+    "test:api": "jest server/tests --forceExit",
     "db:seed": "node ./database/seed.js"
   },
   "repository": {
