@@ -9,6 +9,9 @@ const database = require('../../database');
 const app = express();
 app.use('/api', api);
 
+// TODO-LOW:
+//   figure out why --forceExit is needed to exit jest after running these tests
+
 describe('Product API', () => {
   const mockProduct = {product_id: 42};
   // const mockDB = jest.mock('../../database');
