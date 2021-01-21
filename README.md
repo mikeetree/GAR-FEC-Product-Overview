@@ -14,3 +14,7 @@
   - Returns all product documents
 - GET /api/products/random
   - Returns a random product document
+
+## Tests:
+- Product API:
+  - `npm run test:api`
